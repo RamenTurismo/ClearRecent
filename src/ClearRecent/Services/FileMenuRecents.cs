@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Microsoft;
 using Microsoft.VisualStudio.Shell.Interop;
 
 namespace ClearRecent.Services
@@ -50,8 +51,10 @@ namespace ClearRecent.Services
 
         private IVsUIDataSource GetDataSource(Kind kind)
         {
-            var factory = serviceProvider.GetService(typeof(SVsDataSourceFactory)) as IVsDataSourceFactory;
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
 
+            var factory = serviceProvider.GetService(typeof(SVsDataSourceFactory)) as IVsDataSourceFactory;
+            Assumes.Present(factory);
             factory.GetDataSource(
                 new Guid("9099ad98-3136-4aca-a9ac-7eeeaee51dca"),
                 (uint)kind,

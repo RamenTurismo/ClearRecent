@@ -35,7 +35,7 @@ namespace ClearRecent.Services
 
             foreach (var path in recents)
             {
-                if (shouldDelete(path)) { registry.RemoveAsync(path); }
+                if (shouldDelete(path)) { _ = registry.RemoveAsync(path); }
             }
         }
 
